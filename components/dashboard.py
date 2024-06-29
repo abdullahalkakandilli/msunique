@@ -1,5 +1,6 @@
 from datetime import datetime
 import streamlit as st
+from utils.helper_util import remove_text_inside_brackets
 from utils.ip_checker import get_remote_ip
 from utils.chart_creator import create_chart
 import json
@@ -20,11 +21,13 @@ def app(session_state):
 
     COMPANY_LIST = ['IBM', 'ABB', 'Raiffeisen', 'Siemens']
     company = st.selectbox("Company", COMPANY_LIST)
+    session_state['company'] = company
 
     f = open(f'tools/reports/{company}_general_report.json')
     f_stock = open(f'tools/financials/{company}_financialdata_4.json')
     f_news = open(f'tools/articles/{company}_news.json')
-    data = json.load(f)
+    data = json.loads(remove_text_inside_brackets(json.dumps(json.load(f))))
+    # data = json.load(f)
     yfinance_data = json.loads(json.load(f_stock))
     news_data = json.load(f_news)
 
