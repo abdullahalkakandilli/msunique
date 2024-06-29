@@ -14,12 +14,11 @@ def app(session_state):
 
     st.markdown(
         """
-        Welcome to Sweephy  dashboard ! \n
-        This dashboard shows 
+        Welcome to dashboard ! \n
             """
     )
 
-    COMPANY_LIST = ['IBM', 'ABB', 'Raiffeisen', 'Siemens', 'UBS']
+    COMPANY_LIST = ['IBM', 'ABB', 'Raiffeisen', 'Siemens']
     company = st.selectbox("Company", COMPANY_LIST)
 
     f = open(f'tools/reports/{company}_general_report.json')

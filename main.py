@@ -2,17 +2,19 @@
 import streamlit as st
 from components import dashboard, qa
 
-PAGES = {"Report": dashboard, "Q&A": qa}
+PAGES = {"Assistant report": dashboard, "Q&A": qa}
 
 
 def main():
     st.set_page_config(
-        page_title='AI assistant',
+        page_title='Swisshacks-AI',
         page_icon="LogoLeaf.png",
         layout='wide',
         initial_sidebar_state='auto',
     )
-    st.sidebar.title('Sweephy AI')
+    st.sidebar.title(
+        'Sweephy - Swisshacks Microsoft / Unique Challenge - AI Innovation in Finance'
+    )
     selection = st.sidebar.radio("", list(PAGES.keys()))
 
     if "visited_pages" not in st.session_state:
