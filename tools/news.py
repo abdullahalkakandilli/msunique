@@ -4,15 +4,19 @@ import json
 import time
 from datetime import datetime, timedelta
 from dateutil import parser
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
-COMPANY_LIST = ['ABB', 'ABM', 'Raiffeisen', 'Siemens', 'UBS']
+COMPANY_LIST = ['ABB', 'IBM', 'Raiffeisen', 'Siemens', 'UBS']
 
 
 def _req(company, from_index, batch_size):
+    token = os.getenv('NEWSFILTER_API_KEY')
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ',
+        'Authorization': 'Bearer ' + token,
     }
 
     payload = {
@@ -55,7 +59,7 @@ def get_news(company):
         else:
             more_articles = False
 
-    with open(f"tools/articles/{company}.json", "w") as final:
+    with open(f"tools/articles/{company}_news.json", "w") as final:
         json.dump(articles, final)
 
 
