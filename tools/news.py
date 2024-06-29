@@ -12,7 +12,7 @@ COMPANY_LIST = ['ABB', 'ABM', 'Raiffeisen', 'Siemens', 'UBS']
 def _req(company, from_index, batch_size):
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer X',
+        'Authorization': 'Bearer ',
     }
 
     payload = {
@@ -31,7 +31,7 @@ def _req(company, from_index, batch_size):
 
 def get_news(company):
     end_date = datetime.utcnow().replace(tzinfo=pytz.UTC)
-    start_date = end_date - timedelta(days=180)
+    start_date = end_date - timedelta(days=365)
 
     articles = []
     from_index = 0
@@ -55,9 +55,10 @@ def get_news(company):
         else:
             more_articles = False
 
-    with open(f"articles/{company}.json", "w") as final:
+    with open(f"tools/articles/{company}.json", "w") as final:
         json.dump(articles, final)
 
 
-get_news(company='IBM')
+for company in COMPANY_LIST:
+    get_news(company=company)
 # gather_news_with_company_name = get_news
